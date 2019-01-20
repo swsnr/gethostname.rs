@@ -72,7 +72,6 @@ pub fn gethostname() -> OsString {
 pub fn gethostname() -> OsString {
     use std::os::windows::ffi::OsStringExt;
     use winapi::ctypes::{c_ulong, wchar_t};
-    use winapi::um::errhandlingapi::GetLastError;
     use winapi::um::sysinfoapi::{ComputerNamePhysicalDnsHostname, GetComputerNameExW};
 
     let mut buffer_size: c_ulong = 0;
@@ -85,11 +84,10 @@ pub fn gethostname() -> OsString {
         )
     };
     if returncode != 0 {
-        let errorcode = GetLastError();
         panic!(
-            "GetComputerNameExW failed to read buffer size for host name: error code {}.
+            "GetComputerNameExW failed to read buffer size for host name: {}
 Please report this issue to <https://github.com/lunaryorn/gethostname.rs/issues>!",
-            errorcode
+            Error::last_os_error()
         );
     }
 
@@ -103,11 +101,10 @@ Please report this issue to <https://github.com/lunaryorn/gethostname.rs/issues>
         )
     };
     if returncode != 0 {
-        let errorcode = GetLastError();
         panic!(
-            "GetComputerNameExW failed to read hostname: error code {}.
+            "GetComputerNameExW failed to read hostname: {}
 Please report this issue to <https://github.com/lunaryorn/gethostname.rs/issues>!",
-            errorcode
+            Error::last_os_error()
         );
     }
 
