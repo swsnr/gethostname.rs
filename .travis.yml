@@ -1,0 +1,46 @@
+language: rust
+cache: cargo
+
+# Check formatting before running tests, and lint afterwards
+stages:
+  - formatting
+  - test
+  - lint
+jobs:
+  include:
+    # Check formatting on rust stable before anything else
+    - name: check rustfmt
+      stage: formatting
+      os: linux
+      rust: stable
+      before_script: rustup component add rustfmt
+      script: cargo fmt -- --check
+
+    # Our target Rust version.  We test:
+    #
+    # - A standard linux build
+    # - --no-default-features to make sure things build in other configurations
+    # - A static musl build
+    # - macOS
+    # - Windows
+    - stage: test
+      os: linux
+      rust: stable
+    - stage: test
+      os: osx
+      rust: stable
+
+    # Catch regressions in beta and nightly
+    - stage: test
+      os: linux
+      rust: beta
+    - stage: test
+      os: linux
+      rust: nightly
+
+    # Run clippy after testing, with and without features.
+    - stage: lint
+      os: linux
+      rust: stable
+      before_script: rustup component add clippy
+      script: cargo clippy --all-targets
