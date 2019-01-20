@@ -87,7 +87,6 @@ pub fn gethostname() -> OsString {
     };
 
     let mut buffer = vec![0 as wchar_t; buffer_size as usize];
-
     let returncode = unsafe {
         GetComputerNameExW(
             ComputerNamePhysicalDnsHostname,
@@ -95,7 +94,8 @@ pub fn gethostname() -> OsString {
             &mut buffer_size,
         )
     };
-    if returncode != 0 {
+    // GetComputerNameExW returns a non-zero value on success!
+    if returncode == 0 {
         panic!(
             "GetComputerNameExW failed to read hostname: {}
 Please report this issue to <https://github.com/lunaryorn/gethostname.rs/issues>!",
