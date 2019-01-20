@@ -1,0 +1,17 @@
+[package]
+name = "gethostname"
+description = "gethostname for all platforms"
+readme = "README.md"
+homepage = "https://github.com/lunaryorn/gethostname.rs"
+repository = "https://github.com/lunaryorn/gethostname.rs.git"
+documentation = "https://docs.rs/gethostname"
+version = "0.1.0"
+authors = ["Sebastian Wiesner <sebastian@swsnr.de>"]
+edition = "2018"
+license = "Apache-2.0"
+
+[dev-dependencies]
+pretty_assertions = "^0.5"
+
+[target.'cfg(not(windows))'.dependencies]
+libc = "^0.2"
