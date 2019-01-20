@@ -53,6 +53,35 @@ pub fn gethostname() -> OsString {
     OsString::from_vec(buffer[0..end].to_vec())
 }
 
+#[cfg(windows)]
+pub fn gethostname() -> OsString {
+    use std::os::windows::ffi::OsStringExt;
+    use winapi::ctypes::{c_ulong, wchar_t};
+    use winapi::um::sysinfoapi::{ComputerNamePhysicalDnsHostname, GetComputerNameExW};
+
+    let mut buffer_size: c_ulong = 0;
+
+    unsafe {
+        GetComputerNameExW(
+            ComputerNamePhysicalDnsHostname,
+            std::ptr::null(),
+            &mut buffer_size,
+        )
+    };
+
+    let mut buffer = vec![0 as wchar_t; buffer_size];
+
+    unsafe {
+        GetComputerNameExW(
+            ComputerNamePhysicalDnsHostname,
+            buffer.as_mut_ptr() as *mut wchar_t,
+            &mut buffer_size,
+        )
+    };
+
+    OsString::from_wide(buffer)
+}
+
 #[cfg(test)]
 mod tests {
     use pretty_assertions::assert_eq;
