@@ -64,7 +64,7 @@ pub fn gethostname() -> OsString {
     unsafe {
         GetComputerNameExW(
             ComputerNamePhysicalDnsHostname,
-            std::ptr::null(),
+            std::ptr::null_mut(),
             &mut buffer_size,
         )
     };
@@ -79,7 +79,7 @@ pub fn gethostname() -> OsString {
         )
     };
 
-    OsString::from_wide(buffer)
+    OsString::from_wide(&buffer)
 }
 
 #[cfg(test)]
