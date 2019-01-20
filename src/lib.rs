@@ -76,20 +76,15 @@ pub fn gethostname() -> OsString {
 
     let mut buffer_size: c_ulong = 0;
 
-    let returncode = unsafe {
+    unsafe {
+        // This call always fails with ERROR_MORE_DATA, because we pass NULL to
+        // get the required buffer size.
         GetComputerNameExW(
             ComputerNamePhysicalDnsHostname,
             std::ptr::null_mut(),
             &mut buffer_size,
         )
     };
-    if returncode != 0 {
-        panic!(
-            "GetComputerNameExW failed to read buffer size for host name: {}
-Please report this issue to <https://github.com/lunaryorn/gethostname.rs/issues>!",
-            Error::last_os_error()
-        );
-    }
 
     let mut buffer = vec![0 as wchar_t; buffer_size as usize];
 
