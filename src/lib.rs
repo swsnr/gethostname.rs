@@ -18,6 +18,8 @@
 
 #![deny(warnings, missing_docs, clippy::all)]
 
+use std::ffi::OsString;
+
 /// Get the standard host name for the current machine.
 ///
 /// Wraps POSIX [gethostname] in a safe interface. The function doesn’t fail but
@@ -27,13 +29,14 @@
 ///
 /// [gethostname]: http://pubs.opengroup.org/onlinepubs/9699919799/functions/gethostname.html
 #[cfg(not(windows))]
-pub fn gethostname() -> String {
+pub fn gethostname() -> OsString {
+    use libc::{c_char, sysconf, _SC_HOST_NAME_MAX};
+    use std::os::unix::ffi::OsStringExt;
     // Get the maximum size of host names on this system, and account for the
     // trailing NUL byte.
-    let hostname_max = unsafe { libc::sysconf(libc::_SC_HOST_NAME_MAX) };
+    let hostname_max = unsafe { sysconf(_SC_HOST_NAME_MAX) };
     let mut buffer = vec![0 as u8; (hostname_max as usize) + 1];
-    let returncode =
-        unsafe { libc::gethostname(buffer.as_mut_ptr() as *mut libc::c_char, buffer.len()) };
+    let returncode = unsafe { libc::gethostname(buffer.as_mut_ptr() as *mut c_char, buffer.len()) };
     if returncode != 0 {
         // There are no reasonable failures, so lets panic
         panic!("gethostname failed!  Please report an issue to <https://github.com/lunaryorn/gethostname.rs/issues>!");
@@ -47,7 +50,7 @@ pub fn gethostname() -> String {
         .iter()
         .position(|&b| b == 0)
         .unwrap_or_else(|| buffer.len());
-    String::from_utf8_lossy(&buffer[0..end]).to_string()
+    OsString::from_vec(buffer[0..end].to_vec())
 }
 
 #[cfg(test)]
@@ -65,7 +68,7 @@ mod tests {
         // Convert both sides to lowercase; hostnames are case-insensitive
         // anyway.
         assert_eq!(
-            super::gethostname().to_lowercase(),
+            super::gethostname().into_string().unwrap().to_lowercase(),
             hostname.trim_end().to_lowercase()
         );
     }
