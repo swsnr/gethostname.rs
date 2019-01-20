@@ -50,7 +50,8 @@ pub fn gethostname() -> OsString {
         .iter()
         .position(|&b| b == 0)
         .unwrap_or_else(|| buffer.len());
-    OsString::from_vec(buffer[0..end].to_vec())
+    buffer.resize(end, 0);
+    OsString::from_vec(buffer)
 }
 
 #[cfg(test)]
