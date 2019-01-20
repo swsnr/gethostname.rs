@@ -96,7 +96,6 @@ Please report this issue to <https://github.com/lunaryorn/gethostname.rs/issues>
             &mut buffer_size,
         )
     };
-
     if returncode != 0 {
         let errorcode = GetLastError();
         panic!(
@@ -106,7 +105,12 @@ Please report this issue to <https://github.com/lunaryorn/gethostname.rs/issues>
         );
     }
 
-    OsString::from_wide(&buffer)
+    let end = buffer
+        .iter()
+        .position(|&b| b == 0)
+        .unwrap_or_else(|| buffer.len());
+
+    OsString::from_wide(buffer[0..end])
 }
 
 #[cfg(test)]
