@@ -22,10 +22,10 @@ use std::ffi::OsString;
 
 /// Get the standard host name for the current machine.
 ///
-/// Wraps POSIX [gethostname] in a safe interface. The function doesn’t fail but
-/// it may `panic!` if the internal buffer for the hostname is too small, but we
-/// use a buffer large enough to hold the maximum hostname, so we consider any
-/// panics from this function as bug which you should report.
+/// Wraps POSIX [gethostname] in a safe interface. The function may `panic!` if
+/// the internal buffer for the hostname is too small, but we use a buffer large
+/// enough to hold the maximum hostname, so we consider any panics from this
+/// function as bug which you should report.
 ///
 /// [gethostname]: http://pubs.opengroup.org/onlinepubs/9699919799/functions/gethostname.html
 #[cfg(not(windows))]
@@ -66,27 +66,45 @@ pub fn gethostname() -> OsString {
 pub fn gethostname() -> OsString {
     use std::os::windows::ffi::OsStringExt;
     use winapi::ctypes::{c_ulong, wchar_t};
+    use winapi::um::errhandlingapi::GetLastError;
     use winapi::um::sysinfoapi::{ComputerNamePhysicalDnsHostname, GetComputerNameExW};
 
     let mut buffer_size: c_ulong = 0;
 
-    unsafe {
+    let returncode = unsafe {
         GetComputerNameExW(
             ComputerNamePhysicalDnsHostname,
             std::ptr::null_mut(),
             &mut buffer_size,
         )
     };
+    if returncode != 0 {
+        let errorcode = GetLastError();
+        panic!(
+            "GetComputerNameExW failed to read buffer size for host name: error code {}.
+Please report this issue to <https://github.com/lunaryorn/gethostname.rs/issues>!",
+            errorcode
+        );
+    }
 
     let mut buffer = vec![0 as wchar_t; buffer_size as usize];
 
-    unsafe {
+    let returncode = unsafe {
         GetComputerNameExW(
             ComputerNamePhysicalDnsHostname,
             buffer.as_mut_ptr() as *mut wchar_t,
             &mut buffer_size,
         )
     };
+
+    if returncode != 0 {
+        let errorcode = GetLastError();
+        panic!(
+            "GetComputerNameExW failed to read hostname: error code {}.
+Please report this issue to <https://github.com/lunaryorn/gethostname.rs/issues>!",
+            errorcode
+        );
+    }
 
     OsString::from_wide(&buffer)
 }
