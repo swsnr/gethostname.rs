@@ -59,7 +59,6 @@ mod tests {
     use std::process::Command;
 
     #[test]
-    #[cfg(not(windows))]
     fn gethostname_matches_system_hostname() {
         let output = Command::new("hostname")
             .output()

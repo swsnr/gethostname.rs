@@ -29,6 +29,9 @@ jobs:
     - stage: test
       os: osx
       rust: stable
+    - stage: test
+      os: windows
+      rust: stable
 
     # Catch regressions in beta and nightly
     - stage: test
