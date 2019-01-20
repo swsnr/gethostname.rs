@@ -69,7 +69,7 @@ pub fn gethostname() -> OsString {
         )
     };
 
-    let mut buffer = vec![0 as wchar_t; buffer_size];
+    let mut buffer = vec![0 as wchar_t; buffer_size as usize];
 
     unsafe {
         GetComputerNameExW(
