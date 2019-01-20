@@ -53,6 +53,15 @@ pub fn gethostname() -> OsString {
     OsString::from_vec(buffer[0..end].to_vec())
 }
 
+/// Get the standard hostname for the current machine.
+///
+/// Returns the DNS host name of the local computer, as returned by
+/// [GetComputerNameExW] with `ComputerNamePhysicalDnsHostname` flag has name
+/// type.  This function may `panic!` if the internal buffer for the hostname is
+/// too small.  Since we try to allocate a buffer large enough to hold the host
+/// name we consider panics a bug which you should report.
+///
+/// [GetComputerNameExW]: https://docs.microsoft.com/en-us/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getcomputernameexw
 #[cfg(windows)]
 pub fn gethostname() -> OsString {
     use std::os::windows::ffi::OsStringExt;
