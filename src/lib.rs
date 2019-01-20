@@ -19,6 +19,7 @@
 #![deny(warnings, missing_docs, clippy::all)]
 
 use std::ffi::OsString;
+use std::io::Error;
 
 /// Get the standard host name for the current machine.
 ///
@@ -39,7 +40,11 @@ pub fn gethostname() -> OsString {
     let returncode = unsafe { libc::gethostname(buffer.as_mut_ptr() as *mut c_char, buffer.len()) };
     if returncode != 0 {
         // There are no reasonable failures, so lets panic
-        panic!("gethostname failed!  Please report an issue to <https://github.com/lunaryorn/gethostname.rs/issues>!");
+        panic!(
+            "gethostname failed: {}
+    Please report an issue to <https://github.com/lunaryorn/gethostname.rs/issues>!",
+            Error::last_os_error()
+        );
     }
     // We explicitly search for the trailing NUL byte and cap at the buffer
     // length: If the buffer's too small (which shouldn't happen since we
