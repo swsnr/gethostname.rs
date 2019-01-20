@@ -9,6 +9,8 @@ version = "0.1.0"
 authors = ["Sebastian Wiesner <sebastian@swsnr.de>"]
 edition = "2018"
 license = "Apache-2.0"
+keywords = ["gethostname", "DNS", "hostname"]
+categories = ["os", "api-bindings"]
 
 [dev-dependencies]
 pretty_assertions = "^0.5"
