@@ -17,19 +17,27 @@ jobs:
     - stage: test
       os: linux
       rust: stable
+      before_script: 'sudo hostname eyjafjallajökull'
+      script: cargo test --verbose -- --ignored
     - stage: test
       os: osx
       rust: stable
+      before_script: 'sudo hostname eyjafjallajökull'
+      script: cargo test --verbose -- --ignored
     - stage: test
       os: windows
       rust: stable
+      before_script: ''
+      script: cargo test --verbose
 
     - stage: test
       os: linux
       rust: beta
+      script: cargo test --verbose
     - stage: test
       os: linux
       rust: nightly
+      script: cargo test --verbose
 
     - stage: lint
       os: linux

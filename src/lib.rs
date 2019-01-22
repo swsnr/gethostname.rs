@@ -128,4 +128,13 @@ mod tests {
             hostname.trim_end().to_lowercase()
         );
     }
+
+    #[test]
+    #[ignore]
+    fn gethostname_matches_fixed_hostname() {
+        assert_eq!(
+            super::gethostname().into_string().unwrap().to_lowercase(),
+            "eyjafjallajökull"
+        );
+    }
 }
