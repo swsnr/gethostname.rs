@@ -19,3 +19,5 @@ Initial release.
 ### Added
 
 - `gethostname()` for non-Windows platforms.
+
+[Unreleased]: https://github.com/lunaryorn/gethostname.rs/compare/gethostname-0.1.0...HEAD
