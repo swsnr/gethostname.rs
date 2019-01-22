@@ -20,6 +20,9 @@ jobs:
     - stage: test
       os: osx
       rust: stable
+    - stage: test
+      os: windows
+      rust: stable
 
     - stage: test
       os: linux
@@ -30,6 +33,11 @@ jobs:
 
     - stage: lint
       os: linux
+      rust: stable
+      before_script: rustup component add clippy
+      script: cargo clippy --all-targets
+    - stage: lint
+      os: windows
       rust: stable
       before_script: rustup component add clippy
       script: cargo clippy --all-targets

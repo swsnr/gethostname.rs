@@ -23,10 +23,10 @@ use std::io::Error;
 
 /// Get the standard host name for the current machine.
 ///
-/// Wraps POSIX [gethostname] in a safe interface. The function doesn’t fail but
-/// it may `panic!` if the internal buffer for the hostname is too small, but we
-/// use a buffer large enough to hold the maximum hostname, so we consider any
-/// panics from this function as bug which you should report.
+/// Wraps POSIX [gethostname] in a safe interface. The function may `panic!` if
+/// the internal buffer for the hostname is too small, but we use a buffer large
+/// enough to hold the maximum hostname, so we consider any panics from this
+/// function as bug which you should report.
 ///
 /// [gethostname]: http://pubs.opengroup.org/onlinepubs/9699919799/functions/gethostname.html
 #[cfg(not(windows))]
@@ -59,13 +59,63 @@ pub fn gethostname() -> OsString {
     OsString::from_vec(buffer)
 }
 
+/// Get the standard hostname for the current machine.
+///
+/// Returns the DNS host name of the local computer, as returned by
+/// [GetComputerNameExW] with `ComputerNamePhysicalDnsHostname` flag has name
+/// type.  This function may `panic!` if the internal buffer for the hostname is
+/// too small.  Since we try to allocate a buffer large enough to hold the host
+/// name we consider panics a bug which you should report.
+///
+/// [GetComputerNameExW]: https://docs.microsoft.com/en-us/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getcomputernameexw
+#[cfg(windows)]
+pub fn gethostname() -> OsString {
+    use std::os::windows::ffi::OsStringExt;
+    use winapi::ctypes::{c_ulong, wchar_t};
+    use winapi::um::sysinfoapi::{ComputerNamePhysicalDnsHostname, GetComputerNameExW};
+
+    let mut buffer_size: c_ulong = 0;
+
+    unsafe {
+        // This call always fails with ERROR_MORE_DATA, because we pass NULL to
+        // get the required buffer size.
+        GetComputerNameExW(
+            ComputerNamePhysicalDnsHostname,
+            std::ptr::null_mut(),
+            &mut buffer_size,
+        )
+    };
+
+    let mut buffer = vec![0 as wchar_t; buffer_size as usize];
+    let returncode = unsafe {
+        GetComputerNameExW(
+            ComputerNamePhysicalDnsHostname,
+            buffer.as_mut_ptr() as *mut wchar_t,
+            &mut buffer_size,
+        )
+    };
+    // GetComputerNameExW returns a non-zero value on success!
+    if returncode == 0 {
+        panic!(
+            "GetComputerNameExW failed to read hostname: {}
+Please report this issue to <https://github.com/lunaryorn/gethostname.rs/issues>!",
+            Error::last_os_error()
+        );
+    }
+
+    let end = buffer
+        .iter()
+        .position(|&b| b == 0)
+        .unwrap_or_else(|| buffer.len());
+    OsString::from_wide(&buffer[0..end])
+}
+
 #[cfg(test)]
 mod tests {
     use pretty_assertions::assert_eq;
     use std::process::Command;
 
     #[test]
-    #[cfg(not(windows))]
     fn gethostname_matches_system_hostname() {
         let output = Command::new("hostname")
             .output()

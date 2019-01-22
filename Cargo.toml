@@ -17,3 +17,6 @@ pretty_assertions = "^0.5"
 
 [target.'cfg(not(windows))'.dependencies]
 libc = "^0.2"
+
+[target.'cfg(windows)'.dependencies]
+winapi = {version = "^0.3", features = ["sysinfoapi"]}
