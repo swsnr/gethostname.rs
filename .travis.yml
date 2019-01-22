@@ -1,6 +1,9 @@
 language: rust
 cache: cargo
 
+# Our default Rust version
+rust: '1.31'
+
 stages:
   - formatting
   - test
@@ -10,23 +13,19 @@ jobs:
     - name: check rustfmt
       stage: formatting
       os: linux
-      rust: stable
       before_script: rustup component add rustfmt
       script: cargo fmt -- --check
 
     - stage: test
       os: linux
-      rust: stable
       before_script: 'sudo hostname eyjafjallajökull'
       script: cargo test --verbose -- --ignored
     - stage: test
       os: osx
-      rust: stable
       before_script: 'sudo hostname eyjafjallajökull'
       script: cargo test --verbose -- --ignored
     - stage: test
       os: windows
-      rust: stable
       before_script: ''
       script: cargo test --verbose
 

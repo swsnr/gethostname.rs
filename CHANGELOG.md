@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [Gh-1]: https://github.com/lunaryorn/gethostname.rs/pull/1
 
+### Changed
+- Pin supported Rust version to 1.31
+
 ## 0.1.0 – 2019-01-20
 Initial release.
 
