@@ -2,7 +2,7 @@ language: rust
 cache: cargo
 
 # Our default Rust version
-rust: '1.31'
+rust: '1.31.0'
 
 stages:
   - formatting
@@ -12,6 +12,7 @@ jobs:
   include:
     - name: check rustfmt
       stage: formatting
+      rust: stable
       os: linux
       before_script: rustup component add rustfmt
       script: cargo fmt -- --check
