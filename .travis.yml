@@ -20,11 +20,11 @@ jobs:
     - stage: test
       os: linux
       before_script: 'sudo hostname hostname-for-testing'
-      script: cargo test --verbose -- --ignored
+      script: cargo test --verbose -- --include-ignored
     - stage: test
       os: osx
       before_script: 'sudo hostname hostname-for-testing'
-      script: cargo test --verbose -- --ignored
+      script: cargo test --verbose -- --include-ignored
     - stage: test
       os: windows
       before_script: ''
