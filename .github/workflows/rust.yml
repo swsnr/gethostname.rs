@@ -3,22 +3,36 @@ name: CI
 on: [push]
 
 jobs:
-  linux:
+  formatting:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        rust: [stable, nightly]
     steps:
+    - uses: hecrj/setup-rust-action@v1
+      with:
+        rust-version: ${{ matrix.rust }}
     - uses: actions/checkout@v1
-    - name: Use latest stable rust
-      run: rustup update stable
     - name: Install rustfmt
-      run: rustup component add --toolchain stable rustfmt
+      run: rustup component add rustfmt
     - name: Check code formatting
-      run: cargo +stable fmt -- --check
+      run: cargo fmt -- --check
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+        rust: [stable, nightly]
+    steps:
+    - uses: hecrj/setup-rust-action@v1
+      with:
+        rust-version: ${{ matrix.rust }}
+    - uses: actions/checkout@v1
     - name: Build
-      run: cargo +stable build --all-targets
+      run: cargo build --all-targets
     - name: Test
-      run: cargo +stable test
+      run: cargo test
     - name: Install clippy
-      run: rustup component add --toolchain stable clippy
+      run: rustup component add clippy
     - name: Lint
-      run: cargo +stable clippy --all-targets
-  
+      run: cargo clippy --all-targets
