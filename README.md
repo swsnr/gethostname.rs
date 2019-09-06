@@ -3,14 +3,14 @@
 [![Current release](https://img.shields.io/crates/v/gethostname.svg)][crates]
 [![Documentation](https://docs.rs/gethostname/badge.svg)][docs]
 [![License](https://img.shields.io/github/license/lunaryorn/gethostname.rs.svg)][license]
-[![Build status](https://img.shields.io/travis/com/lunaryorn/gethostname.rs/master.svg)][travis]
+[![CI status](https://github.com/lunaryorn/gethostname.rs/workflows/CI/badge.svg)][ci]
 
 [gethostname()][ghn] for all platforms.
 
 [crates]: https://crates.io/crates/gethostname
 [docs]: https://docs.rs/gethostname
 [license]: https://github.com/lunaryorn/gethostname.rs/blob/master/LICENSE
-[travis]: https://travis-ci.com/lunaryorn/gethostname.rs
+[ci]: https://github.com/lunaryorn/gethostname.rs/actions
 [ghn]: http://pubs.opengroup.org/onlinepubs/9699919799/functions/gethostname.html
 
 ## Prior art
