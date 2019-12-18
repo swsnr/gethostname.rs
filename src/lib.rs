@@ -23,14 +23,38 @@ use std::io::Error;
 
 /// Get the standard host name for the current machine.
 ///
-/// Wraps POSIX [gethostname] in a safe interface. The function may `panic!` if
-/// the internal buffer for the hostname is too small, but we use a buffer large
-/// enough to hold the maximum hostname, so we consider any panics from this
-/// function as bug which you should report.
+/// On Unix simply wrap POSIX [gethostname] in a safe interface.  On Windows
+/// return the DNS host name of the local computer, as returned by
+/// [GetComputerNameExW] with `ComputerNamePhysicalDnsHostname` as `NameType`.
+///
+/// This function panics if the buffer allocated for the hostname result of the
+/// operating system is too small; however we take great care to allocate a
+/// buffer of sufficient size:
+///
+/// * On Unix we allocate the buffer using the maximum permitted hostname size,
+///     as returned by [sysconf] via `sysconf(_SC_HOST_NAME_MAX)`, plus an extra
+///     byte for the trailing NUL byte.  A hostname cannot exceed this limit, so
+///     this function can't realistically panic.
+/// * On Windows we call `GetComputerNameExW` with a NULL buffer first, which
+///     makes it return the length of the current host name.  We then use this
+///     length to allocate a buffer for the actual result; this leaves a tiny
+///     tiny race condition in case the hostname changes to a longer name right
+///     in between those two calls but that's a risk we don't consider of any
+///     practical relevance.
+///
+/// Hence _if_ this function does panic please [report an issue][new].
 ///
 /// [gethostname]: http://pubs.opengroup.org/onlinepubs/9699919799/functions/gethostname.html
-#[cfg(not(windows))]
+/// [sysconf]: http://pubs.opengroup.org/onlinepubs/9699919799/functions/sysconf.html
+/// [GetComputerNameExW]: https://docs.microsoft.com/en-us/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getcomputernameexw
+/// [new]: https://github.com/lunaryorn/gethostname.rs/issues/new
 pub fn gethostname() -> OsString {
+    gethostname_impl()
+}
+
+#[cfg(not(windows))]
+#[inline]
+fn gethostname_impl() -> OsString {
     use libc::{c_char, sysconf, _SC_HOST_NAME_MAX};
     use std::os::unix::ffi::OsStringExt;
     // Get the maximum size of host names on this system, and account for the
@@ -59,17 +83,9 @@ pub fn gethostname() -> OsString {
     OsString::from_vec(buffer)
 }
 
-/// Get the standard hostname for the current machine.
-///
-/// Returns the DNS host name of the local computer, as returned by
-/// [GetComputerNameExW] with `ComputerNamePhysicalDnsHostname` flag has name
-/// type.  This function may `panic!` if the internal buffer for the hostname is
-/// too small.  Since we try to allocate a buffer large enough to hold the host
-/// name we consider panics a bug which you should report.
-///
-/// [GetComputerNameExW]: https://docs.microsoft.com/en-us/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getcomputernameexw
 #[cfg(windows)]
-pub fn gethostname() -> OsString {
+#[inline]
+fn gethostname_impl() -> OsString {
     use std::os::windows::ffi::OsStringExt;
     use winapi::ctypes::{c_ulong, wchar_t};
     use winapi::um::sysinfoapi::{ComputerNamePhysicalDnsHostname, GetComputerNameExW};
