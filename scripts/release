@@ -43,12 +43,10 @@ fi
 
 latest_version="$(git tag --sort '-v:refname' | grep '^gethostname-' | head -n1 | cut -d'-' -f2)"
 
-# Substitute version in Cargo.toml
+# Substitute version in Cargo.toml and add it to Git; we ignore Cargo.lock here
+# since it's being git-ignored.
 sed -i '' "1,/^version =/ s/^version = .*$/version = \"$next_version\"/" Cargo.toml
-# Make cargo update the version in the lockfile as well
-cargo metadata --format-version 1 > /dev/null
-# Add both files to Git
-git add Cargo.toml Cargo.lock
+git add Cargo.toml
 
 # Update the changelog:
 # 1. Append a headline for the current version right after [Unreleased] headline
