@@ -7,6 +7,12 @@
 
 [gethostname()][ghn] for all platforms.
 
+```rust
+use gethostname::gethostname;
+
+println!("Hostname: {:?}", gethostname());
+```
+
 [crates]: https://crates.io/crates/gethostname
 [docs]: https://docs.rs/gethostname
 [license]: https://github.com/lunaryorn/gethostname.rs/blob/master/LICENSE

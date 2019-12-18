@@ -14,6 +14,12 @@
 
 //! [gethostname()][ghn] for all platforms.
 //!
+//! ```
+//! use gethostname::gethostname;
+//!
+//! println!("Hostname: {:?}", gethostname());
+//! ```
+//!
 //! [ghn]: http://pubs.opengroup.org/onlinepubs/9699919799/functions/gethostname.html
 
 #![deny(warnings, missing_docs, clippy::all)]
