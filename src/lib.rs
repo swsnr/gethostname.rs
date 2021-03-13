@@ -66,7 +66,7 @@ fn gethostname_impl() -> OsString {
     // Get the maximum size of host names on this system, and account for the
     // trailing NUL byte.
     let hostname_max = unsafe { sysconf(_SC_HOST_NAME_MAX) };
-    let mut buffer = vec![0 as u8; (hostname_max as usize) + 1];
+    let mut buffer = vec![0; (hostname_max as usize) + 1];
     let returncode = unsafe { libc::gethostname(buffer.as_mut_ptr() as *mut c_char, buffer.len()) };
     if returncode != 0 {
         // There are no reasonable failures, so lets panic
