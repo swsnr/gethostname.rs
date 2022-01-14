@@ -29,7 +29,7 @@ Initial release.
 
 - `gethostname()` for non-Windows platforms.
 
-[0.2.0]: https://codeberg.org/flausch/gethostname.rs/compare/gethostname-0.1.0...gethostname-0.2.0
-[0.2.1]: https://codeberg.org/flausch/gethostname.rs/compare/gethostname-0.2.0...gethostname-0.2.1
 [Unreleased]: https://codeberg.org/flausch/gethostname.rs/compare/v0.2.2...HEAD
 [0.2.2]: https://codeberg.org/flausch/gethostname.rs/compare/gethostname-0.2.1...v0.2.2
+[0.2.0]: https://codeberg.org/flausch/gethostname.rs/compare/gethostname-0.1.0...gethostname-0.2.0
+[0.2.1]: https://codeberg.org/flausch/gethostname.rs/compare/gethostname-0.2.0...gethostname-0.2.1
