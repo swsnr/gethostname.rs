@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Add Windows implementation (see [GH-1]).
 
-[Gh-1]: https://github.com/lunaryorn/gethostname.rs/pull/1
+[Gh-1]: https://codeberg.org/flausch/gethostname.rs/pulls/1
 
 ### Changed
 - Pin supported Rust version to 1.31
@@ -27,6 +27,6 @@ Initial release.
 
 - `gethostname()` for non-Windows platforms.
 
-[0.2.0]: https://github.com/lunaryorn/gethostname.rs/compare/gethostname-0.1.0...gethostname-0.2.0
-[0.2.1]: https://github.com/lunaryorn/gethostname.rs/compare/gethostname-0.2.0...gethostname-0.2.1
-[Unreleased]: https://github.com/lunaryorn/gethostname.rs/compare/gethostname-0.2.1...HEAD
+[0.2.0]: https://codeberg.org/flausch/gethostname.rs/compare/gethostname-0.1.0...gethostname-0.2.0
+[0.2.1]: https://codeberg.org/flausch/gethostname.rs/compare/gethostname-0.2.0...gethostname-0.2.1
+[Unreleased]: https://codeberg.org/flausch/gethostname.rs/compare/gethostname-0.2.1...HEAD

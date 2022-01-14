@@ -2,8 +2,8 @@
 name = "gethostname"
 description = "gethostname for all platforms"
 readme = "README.md"
-homepage = "https://github.com/lunaryorn/gethostname.rs"
-repository = "https://github.com/lunaryorn/gethostname.rs.git"
+homepage = "https://codeberg.org/flausch/gethostname.rs"
+repository = "https://codeberg.org/flausch/gethostname.rs.git"
 documentation = "https://docs.rs/gethostname"
 version = "0.2.1"
 authors = ["Sebastian Wiesner <sebastian@swsnr.de>"]
@@ -19,4 +19,4 @@ pretty_assertions = "^0.7"
 libc = "^0.2"
 
 [target.'cfg(windows)'.dependencies]
-winapi = {version = "^0.3", features = ["sysinfoapi"]}
+winapi = { version = "^0.3", features = ["sysinfoapi"] }

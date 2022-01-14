@@ -56,8 +56,8 @@ sed -e "/^## \[Unreleased\]\$/ a\\
 \\
 ## [${next_version}] – $(date +%Y-%m-%d)\\" \
     -e "\$a\\
-[$next_version]: https://github.com/lunaryorn/gethostname.rs/compare/gethostname-${latest_version}...gethostname-${next_version}\\
-[Unreleased]: https://github.com/lunaryorn/gethostname.rs/compare/gethostname-${next_version}...HEAD" \
+[$next_version]: https://codeberg.org/flausch/gethostname.rs/compare/gethostname-${latest_version}...gethostname-${next_version}\\
+[Unreleased]: https://codeberg.org/flausch/gethostname.rs/compare/gethostname-${next_version}...HEAD" \
     -e '/^\[Unreleased\]:/ D' \
     -i '' CHANGELOG.md
 git add CHANGELOG.md
