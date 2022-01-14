@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.2] – 2022-01-14
+
 ## [0.2.1] – 2019-12-18
 ### Changed
 - Consolidate documetation.
@@ -29,4 +31,5 @@ Initial release.
 
 [0.2.0]: https://codeberg.org/flausch/gethostname.rs/compare/gethostname-0.1.0...gethostname-0.2.0
 [0.2.1]: https://codeberg.org/flausch/gethostname.rs/compare/gethostname-0.2.0...gethostname-0.2.1
-[Unreleased]: https://codeberg.org/flausch/gethostname.rs/compare/gethostname-0.2.1...HEAD
+[Unreleased]: https://codeberg.org/flausch/gethostname.rs/compare/v0.2.2...HEAD
+[0.2.2]: https://codeberg.org/flausch/gethostname.rs/compare/gethostname-0.2.1...v0.2.2
