@@ -139,7 +139,8 @@ mod tests {
 
     #[test]
     fn gethostname_matches_system_hostname() {
-        let output = Command::new("hostname")
+        let output = Command::new("hostnamectl")
+            .arg("hostname")
             .output()
             .expect("failed to get hostname");
         let hostname = String::from_utf8_lossy(&output.stdout);
