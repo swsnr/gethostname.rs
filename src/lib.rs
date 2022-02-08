@@ -58,7 +58,7 @@ pub fn gethostname() -> OsString {
     gethostname_impl()
 }
 
-#[cfg(not(windows))]
+#[cfg(unix)]
 #[inline]
 fn gethostname_impl() -> OsString {
     use libc::{c_char, sysconf, _SC_HOST_NAME_MAX};

@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Limit `gethostname()` to `cfg(unix)` and `cfg(windows)` to provide more useful build failures on other platforms (see [#7]).
+
+[#7]: https://codeberg.org/flausch/gethostname.rs/issues/7
+
 ## [0.2.2] – 2022-01-14
 
 ## [0.2.1] – 2019-12-18
