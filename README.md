@@ -2,7 +2,6 @@
 
 [![Current release](https://img.shields.io/crates/v/gethostname.svg)][crates]
 [![Documentation](https://docs.rs/gethostname/badge.svg)][docs]
-[![License](https://img.shields.io/github/license/lunaryorn/gethostname.rs.svg)][license]
 
 [gethostname()][ghn] for all platforms.
 
