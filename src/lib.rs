@@ -81,10 +81,7 @@ fn gethostname_impl() -> OsString {
     // explicitly use the max hostname size above but just in case) POSIX
     // doesn't specify whether there's a NUL byte at the end, so if we didn't
     // check we might read from memory that's not ours.
-    let end = buffer
-        .iter()
-        .position(|&b| b == 0)
-        .unwrap_or_else(|| buffer.len());
+    let end = buffer.iter().position(|&b| b == 0).unwrap_or(buffer.len());
     buffer.resize(end, 0);
     OsString::from_vec(buffer)
 }
