@@ -139,13 +139,20 @@ mod tests {
             .arg("hostname")
             .output()
             .expect("failed to get hostname");
-        let hostname = String::from_utf8_lossy(&output.stdout);
-        // Convert both sides to lowercase; hostnames are case-insensitive
-        // anyway.
-        assert_eq!(
-            super::gethostname().into_string().unwrap().to_lowercase(),
-            hostname.trim_end().to_lowercase()
-        );
+        if output.status.success() {
+            let hostname = String::from_utf8_lossy(&output.stdout);
+            // Convert both sides to lowercase; hostnames are case-insensitive
+            // anyway.
+            assert_eq!(
+                super::gethostname().into_string().unwrap().to_lowercase(),
+                hostname.trim_end().to_lowercase()
+            );
+        } else {
+            panic!(
+                "Failed to get hostname! {}",
+                String::from_utf8_lossy(&output.stderr)
+            );
+        }
     }
 
     #[test]
