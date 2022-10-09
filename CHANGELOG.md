@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Limit `gethostname()` to `cfg(unix)` and `cfg(windows)` to provide more useful build failures on other platforms (see [#7]).
 
-[#7]: https://codeberg.org/flausch/gethostname.rs/issues/7
+[#7]: https://github.com/lunaryorn/gethostname.rs/issues/7
 
 ## [0.2.2] – 2022-01-14
 
@@ -24,7 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Add Windows implementation (see [GH-1]).
 
-[Gh-1]: https://codeberg.org/flausch/gethostname.rs/pulls/1
+[Gh-1]: https://github.com/lunaryorn/gethostname.rs/pull/1
 
 ### Changed
 - Pin supported Rust version to 1.31
@@ -36,8 +36,8 @@ Initial release.
 
 - `gethostname()` for non-Windows platforms.
 
-[Unreleased]: https://codeberg.org/flausch/gethostname.rs/compare/v0.2.3...HEAD
-[0.2.3]: https://codeberg.org/flausch/gethostname.rs/compare/v0.2.2...v0.2.3
-[0.2.2]: https://codeberg.org/flausch/gethostname.rs/compare/gethostname-0.2.1...v0.2.2
-[0.2.0]: https://codeberg.org/flausch/gethostname.rs/compare/gethostname-0.1.0...gethostname-0.2.0
-[0.2.1]: https://codeberg.org/flausch/gethostname.rs/compare/gethostname-0.2.0...gethostname-0.2.1
+[Unreleased]: https://github.com/lunaryorn/gethostname.rs/compare/v0.2.3...HEAD
+[0.2.3]: https://github.com/lunaryorn/gethostname.rs/compare/v0.2.2...v0.2.3
+[0.2.2]: https://github.com/lunaryorn/gethostname.rs/compare/gethostname-0.2.1...v0.2.2
+[0.2.0]: https://github.com/lunaryorn/gethostname.rs/compare/gethostname-0.1.0...gethostname-0.2.0
+[0.2.1]: https://github.com/lunaryorn/gethostname.rs/compare/gethostname-0.2.0...gethostname-0.2.1

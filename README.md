@@ -13,8 +13,6 @@ println!("Hostname: {:?}", gethostname());
 
 [crates]: https://crates.io/crates/gethostname
 [docs]: https://docs.rs/gethostname
-[license]: https://codeberg.org/flausch/gethostname.rs/blob/master/LICENSE
-[ci]: https://codeberg.org/flausch/gethostname.rs/actions
 [ghn]: http://pubs.opengroup.org/onlinepubs/9699919799/functions/gethostname.html
 
 ## Prior art

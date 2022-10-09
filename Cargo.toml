@@ -2,8 +2,8 @@
 name = "gethostname"
 description = "gethostname for all platforms"
 readme = "README.md"
-homepage = "https://codeberg.org/flausch/gethostname.rs"
-repository = "https://codeberg.org/flausch/gethostname.rs.git"
+homepage = "https://github.com/lunaryorn/gethostname.rs"
+repository = "https://github.com/lunaryorn/gethostname.rs.git"
 documentation = "https://docs.rs/gethostname"
 version = "0.2.3"
 authors = ["Sebastian Wiesner <sebastian@swsnr.de>"]
