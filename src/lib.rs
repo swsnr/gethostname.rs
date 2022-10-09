@@ -131,7 +131,6 @@ Please report this issue to <https://github.com/lunaryorn/gethostname.rs/issues>
 
 #[cfg(test)]
 mod tests {
-    use pretty_assertions::assert_eq;
     use std::process::Command;
 
     #[test]

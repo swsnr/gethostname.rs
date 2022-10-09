@@ -12,9 +12,6 @@ license = "Apache-2.0"
 keywords = ["gethostname", "DNS", "hostname"]
 categories = ["os", "api-bindings"]
 
-[dev-dependencies]
-pretty_assertions = "1.1.0"
-
 [target.'cfg(not(windows))'.dependencies]
 libc = "^0.2"
 
