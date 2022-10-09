@@ -30,7 +30,7 @@ jobs:
         os: [ubuntu-latest, windows-latest, macOS-latest]
         rust:
           # Our minimal supported version
-          - '1.31.0'
+          - '1.56.0'
           # The standard Rust version
           - stable
     steps:
