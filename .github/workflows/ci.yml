@@ -30,6 +30,7 @@ jobs:
     - uses: EmbarkStudios/cargo-deny-action@v1
 
   test:
+    name: test
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
