@@ -23,6 +23,12 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           args: --all-targets
 
+  cargo-deny:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: EmbarkStudios/cargo-deny-action@v1
+
   test:
     runs-on: ${{ matrix.os }}
     strategy:
