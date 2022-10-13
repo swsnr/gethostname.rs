@@ -7,15 +7,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt
       - uses: actions-rs/toolchain@v1
         with:
-          toolchain: stable
-          override: true
           components: rustfmt
-      - uses: actions-rs/cargo@v1
-        with:
-          command: fmt
-          args: -- --check
+      - run: cargo fmt --check
 
   cargo-deny:
     runs-on: ubuntu-latest
