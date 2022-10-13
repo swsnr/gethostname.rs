@@ -37,8 +37,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: dtolnay/rust-toolchain@stable
-        toolchain: ${{ matrix.rust }}
-        components: clippy
+        with:
+          toolchain: ${{ matrix.rust }}
+          components: clippy
       - run: cargo test
       # Run tests with fixed hostname on Unix systems
       - run: sudo hostname hostname-for-testing
