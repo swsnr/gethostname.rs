@@ -35,24 +35,14 @@ jobs:
           # The standard Rust version
           - stable
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: ${{ matrix.rust }}
-          override: true
-          components: clippy
-      - uses: actions-rs/cargo@v1
-        with:
-          command: test
+      - uses: actions/checkout@v3
+      - uses: dtolnay/rust-toolchain@stable
+        toolchain: ${{ matrix.rust }}
+        components: clippy
+      - run: cargo test
       # Run tests with fixed hostname on Unix systems
       - run: sudo hostname hostname-for-testing
         if: "!contains(matrix.os, 'windows')"
       - if: "!contains(matrix.os, 'windows')"
-        uses: actions-rs/cargo@v1
-        with:
-          command: test
-          args: -- --ignored
-      - uses: actions-rs/clippy-check@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          args: --all-targets
+        run: cargo test --ignored
+      - run: cargo clippy --all-targets
