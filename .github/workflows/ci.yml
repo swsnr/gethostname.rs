@@ -45,5 +45,5 @@ jobs:
       - run: sudo hostname hostname-for-testing
         if: "!contains(matrix.os, 'windows')"
       - if: "!contains(matrix.os, 'windows')"
-        run: cargo test --ignored
+        run: cargo test -- --ignored
       - run: cargo clippy --all-targets
