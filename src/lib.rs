@@ -122,10 +122,7 @@ Please report this issue to <https://github.com/lunaryorn/gethostname.rs/issues>
         );
     }
 
-    let end = buffer
-        .iter()
-        .position(|&b| b == 0)
-        .unwrap_or_else(|| buffer.len());
+    let end = buffer.iter().position(|&b| b == 0).unwrap_or(buffer.len());
     OsString::from_wide(&buffer[0..end])
 }
 
