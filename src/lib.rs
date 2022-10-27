@@ -25,7 +25,6 @@
 #![deny(warnings, missing_docs, clippy::all)]
 
 use std::ffi::OsString;
-use std::io::Error;
 
 /// Get the standard host name for the current machine.
 ///
@@ -73,7 +72,7 @@ fn gethostname_impl() -> OsString {
         panic!(
             "gethostname failed: {}
     Please report an issue to <https://github.com/lunaryorn/gethostname.rs/issues>!",
-            Error::last_os_error()
+            std::io::Error::last_os_error()
         );
     }
     // We explicitly search for the trailing NUL byte and cap at the buffer
@@ -90,37 +89,45 @@ fn gethostname_impl() -> OsString {
 #[inline]
 fn gethostname_impl() -> OsString {
     use std::os::windows::ffi::OsStringExt;
-    use winapi::ctypes::{c_ulong, wchar_t};
-    use winapi::um::sysinfoapi::{ComputerNamePhysicalDnsHostname, GetComputerNameExW};
+    use windows::core::PWSTR;
+    use windows::Win32::System::SystemInformation::{
+        ComputerNamePhysicalDnsHostname, GetComputerNameExW,
+    };
 
-    let mut buffer_size: c_ulong = 0;
+    let mut buffer_size: u32 = 0;
 
     unsafe {
         // This call always fails with ERROR_MORE_DATA, because we pass NULL to
-        // get the required buffer size.
+        // get the required buffer size.  GetComputerNameExW then fills buffer_size with the size
+        // of the host name string plus a trailing zero byte.
         GetComputerNameExW(
             ComputerNamePhysicalDnsHostname,
-            std::ptr::null_mut(),
+            PWSTR::null(),
             &mut buffer_size,
         )
     };
+    assert!(
+        0 < buffer_size,
+        "GetComputerNameExW did not provide buffer size"
+    );
 
-    let mut buffer = vec![0 as wchar_t; buffer_size as usize];
-    let returncode = unsafe {
+    let mut buffer = vec![0_u16; buffer_size as usize];
+    unsafe {
         GetComputerNameExW(
             ComputerNamePhysicalDnsHostname,
-            buffer.as_mut_ptr() as *mut wchar_t,
+            PWSTR::from_raw(buffer.as_mut_ptr()),
             &mut buffer_size,
         )
-    };
-    // GetComputerNameExW returns a non-zero value on success!
-    if returncode == 0 {
-        panic!(
-            "GetComputerNameExW failed to read hostname: {}
-Please report this issue to <https://github.com/lunaryorn/gethostname.rs/issues>!",
-            Error::last_os_error()
-        );
+        .expect(
+            "GetComputerNameExW failed to read hostname.
+        Please report this issue to <https://github.com/lunaryorn/gethostname.rs/issues>!",
+        )
     }
+    assert!(
+        // GetComputerNameExW returns the size _without_ the trailing zero byte on the second call
+        buffer_size as usize == buffer.len() - 1,
+        "GetComputerNameExW changed the buffer size unexpectedly"
+    );
 
     let end = buffer.iter().position(|&b| b == 0).unwrap_or(buffer.len());
     OsString::from_wide(&buffer[0..end])
@@ -137,6 +144,10 @@ mod tests {
             .expect("failed to get hostname");
         if output.status.success() {
             let hostname = String::from_utf8_lossy(&output.stdout);
+            assert!(
+                !hostname.is_empty(),
+                "Failed to get hostname: hostname empty?"
+            );
             // Convert both sides to lowercase; hostnames are case-insensitive
             // anyway.
             assert_eq!(
