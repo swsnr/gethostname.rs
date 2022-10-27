@@ -14,9 +14,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.2.3] – 2022-03-12
 
 ### Changed
-- Limit `gethostname()` to `cfg(unix)` and `cfg(windows)` to provide more useful build failures on other platforms (see [#7]).
+- Limit `gethostname()` to `cfg(unix)` and `cfg(windows)` to provide more useful build failures on other platforms (see [CB-7]).
 
-[#7]: https://github.com/lunaryorn/gethostname.rs/issues/7
+[CB-7]: https://codeberg.org/flausch/gethostname.rs/issues/7
 
 ## [0.2.2] – 2022-01-14
 
@@ -29,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Add Windows implementation (see [GH-1]).
 
-[Gh-1]: https://github.com/lunaryorn/gethostname.rs/pull/1
+[GH-1]: https://github.com/lunaryorn/gethostname.rs/pull/1
 
 ### Changed
 - Pin supported Rust version to 1.31
