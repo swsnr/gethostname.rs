@@ -144,6 +144,10 @@ mod tests {
             .expect("failed to get hostname");
         if output.status.success() {
             let hostname = String::from_utf8_lossy(&output.stdout);
+            assert!(
+                !hostname.is_empty(),
+                "Failed to get hostname: hostname empty?"
+            );
             // Convert both sides to lowercase; hostnames are case-insensitive
             // anyway.
             assert_eq!(
