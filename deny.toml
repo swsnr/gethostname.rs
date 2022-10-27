@@ -1,4 +1,9 @@
-targets = []
+targets = [
+    # These are the targets we test for
+    { triple = "x86_64-unknown-linux-gnu" },
+    { triple = "x86_64-apple-darwin" },
+    { triple = "x86_64-pc-windows-msvc" },
+]
 
 [advisories]
 db-path = "~/.cargo/advisory-db"
@@ -22,3 +27,7 @@ confidence-threshold = 0.8
 [sources]
 unknown-registry = "deny"
 unknown-git = "deny"
+
+[bans]
+multiple-versions = "deny"
+workspace-default-features = "deny"
