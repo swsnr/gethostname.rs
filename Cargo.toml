@@ -11,6 +11,7 @@ edition = "2021"
 license = "Apache-2.0"
 keywords = ["gethostname", "DNS", "hostname"]
 categories = ["os", "api-bindings"]
+rust-version = "1.64"
 
 [target.'cfg(not(windows))'.dependencies]
 libc = "^0.2"

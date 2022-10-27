@@ -26,7 +26,7 @@ jobs:
         os: [ubuntu-latest, windows-latest, macOS-latest]
         rust:
           # Our minimal supported version
-          - '1.56.0'
+          - '1.64.0'
           # The standard Rust version
           - stable
     steps:
