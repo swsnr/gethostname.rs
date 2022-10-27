@@ -98,13 +98,18 @@ fn gethostname_impl() -> OsString {
 
     unsafe {
         // This call always fails with ERROR_MORE_DATA, because we pass NULL to
-        // get the required buffer size.
+        // get the required buffer size.  GetComputerNameExW then fills buffer_size with the size
+        // of the host name string plus a trailing zero byte.
         GetComputerNameExW(
             ComputerNamePhysicalDnsHostname,
             PWSTR::null(),
             &mut buffer_size,
         )
     };
+    assert!(
+        0 < buffer_size,
+        "GetComputerNameExW did not provide buffer size"
+    );
 
     let mut buffer = vec![0 as u16; buffer_size as usize];
     unsafe {
@@ -118,6 +123,11 @@ fn gethostname_impl() -> OsString {
         Please report this issue to <https://github.com/lunaryorn/gethostname.rs/issues>!",
         )
     }
+    assert!(
+        // GetComputerNameExW returns the size _without_ the trailing zero byte on the second call
+        buffer_size as usize == buffer.len() - 1,
+        "GetComputerNameExW changed the buffer size unexpectedly"
+    );
 
     let end = buffer.iter().position(|&b| b == 0).unwrap_or(buffer.len());
     OsString::from_wide(&buffer[0..end])
