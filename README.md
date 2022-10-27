@@ -15,15 +15,6 @@ println!("Hostname: {:?}", gethostname());
 [docs]: https://docs.rs/gethostname
 [ghn]: http://pubs.opengroup.org/onlinepubs/9699919799/functions/gethostname.html
 
-## Prior art
-
-[hostname] also provides `gethostname()`, but is [no longer maintained][1] as of
-2019.  This crate improves the [Windows implementation][2].
-
-[hostname]: https://github.com/fengcen/hostname
-[1]: https://github.com/fengcen/hostname/pull/4#issuecomment-455735989
-[2]: https://github.com/fengcen/hostname/pull/4#issuecomment-433722692
-
 ## License
 
 Copyright 2019–2022 Sebastian Wiesner <sebastian@swsnr.de>
