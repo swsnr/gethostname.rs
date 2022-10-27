@@ -111,7 +111,7 @@ fn gethostname_impl() -> OsString {
         "GetComputerNameExW did not provide buffer size"
     );
 
-    let mut buffer = vec![0 as u16; buffer_size as usize];
+    let mut buffer = vec![0_u16; buffer_size as usize];
     unsafe {
         GetComputerNameExW(
             ComputerNamePhysicalDnsHostname,
