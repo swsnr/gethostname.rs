@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] – 2022-10-28
+
 ### Changed
 - Replace `winapi` with windows-rs, see [GH-7].
 - Bump MSRV to 1.64 as required by windows-rs, see [GH-7].
@@ -47,7 +49,8 @@ Initial release.
 
 - `gethostname()` for non-Windows platforms.
 
-[Unreleased]: https://github.com/lunaryorn/gethostname.rs/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/lunaryorn/gethostname.rs/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/lunaryorn/gethostname.rs/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/lunaryorn/gethostname.rs/compare/v0.2.3...v0.3.0
 [0.2.3]: https://github.com/lunaryorn/gethostname.rs/compare/v0.2.2...v0.2.3
 [0.2.2]: https://github.com/lunaryorn/gethostname.rs/compare/gethostname-0.2.1...v0.2.2
