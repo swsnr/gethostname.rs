@@ -30,4 +30,3 @@ unknown-git = "deny"
 
 [bans]
 multiple-versions = "deny"
-workspace-default-features = "deny"
