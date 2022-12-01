@@ -52,7 +52,7 @@ use std::ffi::OsString;
 /// [gethostname]: http://pubs.opengroup.org/onlinepubs/9699919799/functions/gethostname.html
 /// [sysconf]: http://pubs.opengroup.org/onlinepubs/9699919799/functions/sysconf.html
 /// [GetComputerNameExW]: https://docs.microsoft.com/en-us/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getcomputernameexw
-/// [new]: https://github.com/lunaryorn/gethostname.rs/issues/new
+/// [new]: https://github.com/swsnr/gethostname.rs/issues/new
 pub fn gethostname() -> OsString {
     gethostname_impl()
 }
@@ -71,7 +71,7 @@ fn gethostname_impl() -> OsString {
         // There are no reasonable failures, so lets panic
         panic!(
             "gethostname failed: {}
-    Please report an issue to <https://github.com/lunaryorn/gethostname.rs/issues>!",
+    Please report an issue to <https://github.com/swsnr/gethostname.rs/issues>!",
             std::io::Error::last_os_error()
         );
     }
@@ -120,7 +120,7 @@ fn gethostname_impl() -> OsString {
         )
         .expect(
             "GetComputerNameExW failed to read hostname.
-        Please report this issue to <https://github.com/lunaryorn/gethostname.rs/issues>!",
+        Please report this issue to <https://github.com/swsnr/gethostname.rs/issues>!",
         )
     }
     assert!(
