@@ -43,3 +43,4 @@ jobs:
         run: cargo test -- --ignored
       - if: matrix.rust == 'stable'
         run: cargo clippy --all-targets
+      - run: cargo doc
