@@ -60,29 +60,28 @@ pub fn gethostname() -> OsString {
 #[cfg(unix)]
 #[inline]
 fn gethostname_impl() -> OsString {
-    use libc::{c_char, sysconf, _SC_HOST_NAME_MAX};
     use std::os::unix::ffi::OsStringExt;
-    // Get the maximum size of host names on this system, and account for the
-    // trailing NUL byte.
-    let hostname_max = unsafe { sysconf(_SC_HOST_NAME_MAX) };
-    let mut buffer = vec![0; (hostname_max as usize) + 1];
-    let returncode = unsafe { libc::gethostname(buffer.as_mut_ptr() as *mut c_char, buffer.len()) };
-    if returncode != 0 {
-        // There are no reasonable failures, so lets panic
-        panic!(
-            "gethostname failed: {}
-    Please report an issue to <https://github.com/swsnr/gethostname.rs/issues>!",
-            std::io::Error::last_os_error()
-        );
-    }
-    // We explicitly search for the trailing NUL byte and cap at the buffer
-    // length: If the buffer's too small (which shouldn't happen since we
-    // explicitly use the max hostname size above but just in case) POSIX
-    // doesn't specify whether there's a NUL byte at the end, so if we didn't
-    // check we might read from memory that's not ours.
-    let end = buffer.iter().position(|&b| b == 0).unwrap_or(buffer.len());
-    buffer.resize(end, 0);
-    OsString::from_vec(buffer)
+
+    // libc::gethostname() is implemented in both musl and glibc by calling uname() and copying
+    // the nodename field into the buffer.
+    //
+    // glibc:
+    // https://github.com/lattera/glibc/blob/895ef79e04a953cac1493863bcae29ad85657ee1/sysdeps/posix/gethostname.c#L32-L36
+    // musl:
+    // https://github.com/cloudius-systems/musl/blob/00733dd1cf791d13ff6155509cf139a5f7b2eecb/src/unistd/gethostname.c#L4-L13
+    //
+    // On FreeBSD, libc::gethostname() is a sysctl call to KERN_HOSTNAME. uname() fetches the nodename
+    // using the same strategy.
+    //
+    // freebsd gethostname:
+    // https://github.com/FreeBSDDesktop/freebsd-base/blob/de1aa3dab23c06fec962a14da3e7b4755c5880cf/lib/libc/gen/gethostname.c#L47-L54
+    // freebsd uname:
+    // https://github.com/FreeBSDDesktop/freebsd-base/blob/de1aa3dab23c06fec962a14da3e7b4755c5880cf/lib/libc/gen/__xuname.c#L73-L83
+    //
+    // OpenBSD uses the same strategy, so I doubt that other implementations of uname() among the BSDs
+    // stray too far from this pattern.
+    let bytes = rustix::process::uname().nodename().to_bytes().to_vec();
+    OsString::from_vec(bytes)
 }
 
 #[cfg(windows)]
