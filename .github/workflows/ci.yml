@@ -1,6 +1,18 @@
 name: CI
 
-on: [push]
+on:
+  push:
+    # Don't build tags; that's redundant with pushes to main normally.
+    tags-ignore: '*'
+    # Only build main, for all other branches rely on pull requests.  This
+    # avoids duplicate builds for pull requests.
+    branches: main
+    # Don't build for trivial changes
+    paths-ignore:
+      - '*.md'
+      - 'LICENSE'
+  pull_request:
+
 
 jobs:
   rustfmt:
