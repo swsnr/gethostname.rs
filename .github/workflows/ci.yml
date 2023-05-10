@@ -1,17 +1,20 @@
 name: CI
 
-on: [push]
+on:
+  push:
+    # Don't build tags; that's redundant with pushes to main normally.
+    tags-ignore: '*'
+    # Only build main, for all other branches rely on pull requests.  This
+    # avoids duplicate builds for pull requests.
+    branches: main
+    # Don't build for trivial changes
+    paths-ignore:
+      - '*.md'
+      - 'LICENSE'
+  pull_request:
+
 
 jobs:
-  rustfmt:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: dtolnay/rust-toolchain@stable
-        with:
-          components: rustfmt
-      - run: cargo fmt --check
-
   cargo-deny:
     runs-on: ubuntu-latest
     steps:
@@ -34,13 +37,15 @@ jobs:
       - uses: dtolnay/rust-toolchain@master
         with:
           toolchain: ${{ matrix.rust }}
-          components: clippy
+          components: clippy,rustfmt
       - run: cargo test
       # Run tests with fixed hostname on Unix systems
       - run: sudo hostname hostname-for-testing
         if: "!contains(matrix.os, 'windows')"
-      - if: "!contains(matrix.os, 'windows')"
-        run: cargo test -- --ignored
-      - if: matrix.rust == 'stable'
-        run: cargo clippy --all-targets
+      - run: cargo test -- --ignored
+        if: "!contains(matrix.os, 'windows')"
+      - run: cargo clippy --all-targets
+        if: matrix.rust == 'stable'
+      - run: cargo fmt --check
+        if: matrix.rust == 'stable'
       - run: cargo doc
