@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Removed the `windows` dependency in favor of using embedded bindings, see [GH-11].
+
+[GH-11]: https://github.com/swsnr/gethostname.rs/pull/11
+
 ## [0.4.2] – 2023-04-13
 
 ### Changed

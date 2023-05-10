@@ -89,10 +89,14 @@ fn gethostname_impl() -> OsString {
 #[inline]
 fn gethostname_impl() -> OsString {
     use std::os::windows::ffi::OsStringExt;
-    use windows::core::PWSTR;
-    use windows::Win32::System::SystemInformation::{
-        ComputerNamePhysicalDnsHostname, GetComputerNameExW,
-    };
+
+    // The DNS host name of the local computer. If the local computer is a node
+    // in a cluster, lpBuffer receives the DNS host name of the local computer,
+    // not the name of the cluster virtual server.
+    pub const COMPUTER_NAME_PHYSICAL_DNS_HOSTNAME: i32 = 5;
+
+    // https://learn.microsoft.com/en-us/windows/win32/api/sysinfoapi/nf-sysinfoapi-getcomputernameexw
+    ::windows_targets::link!("kernel32.dll" "system" fn GetComputerNameExW(nametype: i32, lpbuffer: *mut u16, nsize: *mut u32) -> i32);
 
     let mut buffer_size: u32 = 0;
 
@@ -101,8 +105,8 @@ fn gethostname_impl() -> OsString {
         // get the required buffer size.  GetComputerNameExW then fills buffer_size with the size
         // of the host name string plus a trailing zero byte.
         GetComputerNameExW(
-            ComputerNamePhysicalDnsHostname,
-            PWSTR::null(),
+            COMPUTER_NAME_PHYSICAL_DNS_HOSTNAME,
+            std::ptr::null_mut(),
             &mut buffer_size,
         )
     };
@@ -113,15 +117,17 @@ fn gethostname_impl() -> OsString {
 
     let mut buffer = vec![0_u16; buffer_size as usize];
     unsafe {
-        GetComputerNameExW(
-            ComputerNamePhysicalDnsHostname,
-            PWSTR::from_raw(buffer.as_mut_ptr()),
+        if GetComputerNameExW(
+            COMPUTER_NAME_PHYSICAL_DNS_HOSTNAME,
+            buffer.as_mut_ptr(),
             &mut buffer_size,
-        )
-        .expect(
-            "GetComputerNameExW failed to read hostname.
-        Please report this issue to <https://github.com/swsnr/gethostname.rs/issues>!",
-        )
+        ) == 0
+        {
+            panic!(
+                "GetComputerNameExW failed to read hostname.
+        Please report this issue to <https://github.com/swsnr/gethostname.rs/issues>!"
+            );
+        }
     }
     assert!(
         // GetComputerNameExW returns the size _without_ the trailing zero byte on the second call
