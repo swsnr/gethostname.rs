@@ -17,4 +17,4 @@ rust-version = "1.64"
 libc = "0.2.141"
 
 [target.'cfg(windows)'.dependencies]
-windows-targets = "0.48"
+windows-targets = "0.52.4"
