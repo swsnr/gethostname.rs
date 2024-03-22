@@ -26,7 +26,7 @@ jobs:
     env:
       CARGO_VET_VERSION: X.Y.Z
     steps:
-      - uses: actions/checkout@4
+      - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
       - uses: actions/cache@v2
         with:
@@ -48,7 +48,7 @@ jobs:
           # The standard Rust version
           - stable
     steps:
-      - uses: actions/checkout@4
+      - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@master
         with:
           toolchain: ${{ matrix.rust }}
