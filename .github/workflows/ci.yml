@@ -34,7 +34,7 @@ jobs:
           key: cargo-vet-bin-${{ env.CARGO_VET_VERSION }}
       - run: echo "${{ runner.tool_cache }}/cargo-vet/bin" >> $GITHUB_PATH
       - run: cargo install --root ${{ runner.tool_cache }}/cargo-vet --version ${{ env.CARGO_VET_VERSION }} cargo-vet
-      - run: cargo vet --locked
+      - run: cargo vet
 
   test:
     name: test
