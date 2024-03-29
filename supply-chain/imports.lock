@@ -2,8 +2,8 @@
 # cargo-vet imports lock
 
 [[publisher.libc]]
-version = "0.2.141"
-when = "2023-04-04"
+version = "0.2.153"
+when = "2024-01-31"
 user-id = 51017
 user-login = "JohnTitor"
 user-name = "Yuki Okushi"
