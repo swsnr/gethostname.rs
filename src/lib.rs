@@ -81,7 +81,7 @@ fn gethostname_impl() -> OsString {
     // doesn't specify whether there's a NUL byte at the end, so if we didn't
     // check we might read from memory that's not ours.
     let end = buffer.iter().position(|&b| b == 0).unwrap_or(buffer.len());
-    buffer.resize(end, 0);
+    buffer.truncate(end);
     OsString::from_vec(buffer)
 }
 
