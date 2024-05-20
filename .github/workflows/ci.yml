@@ -54,13 +54,13 @@ jobs:
         with:
           toolchain: ${{ matrix.rust }}
           components: clippy,rustfmt
-      - run: cargo test
+      - run: cargo test --locked
       # Run tests with fixed hostname on Unix systems
       - run: sudo hostname hostname-for-testing
         if: "!contains(matrix.os, 'windows')"
-      - run: cargo test -- --ignored
+      - run: cargo test --locked -- --ignored
         if: "!contains(matrix.os, 'windows')"
-      - run: cargo clippy --all-targets
+      - run: cargo clippy --locked --all-targets
         if: matrix.rust == 'stable'
       - run: cargo fmt --check
         if: matrix.rust == 'stable'
