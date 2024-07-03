@@ -37,9 +37,10 @@ use std::ffi::OsString;
 /// buffer of sufficient size:
 ///
 /// * On Unix we allocate the buffer using the maximum permitted hostname size,
-///     as returned by [sysconf] via `sysconf(_SC_HOST_NAME_MAX)`, plus an extra
-///     byte for the trailing NUL byte.  A hostname cannot exceed this limit, so
-///     this function can't realistically panic.
+///     as returned by [sysconf] via `sysconf(_SC_HOST_NAME_MAX)` (falling back
+///     to 256 if no size is set by the OS), plus an extra byte for the
+///     trailing NUL byte.  A hostname cannot exceed this limit, so this
+///     function can't realistically panic.
 /// * On Windows we call `GetComputerNameExW` with a NULL buffer first, which
 ///     makes it return the length of the current host name.  We then use this
 ///     length to allocate a buffer for the actual result; this leaves a tiny
@@ -64,7 +65,13 @@ fn gethostname_impl() -> OsString {
     use std::os::unix::ffi::OsStringExt;
     // Get the maximum size of host names on this system, and account for the
     // trailing NUL byte.
-    let hostname_max = unsafe { sysconf(_SC_HOST_NAME_MAX) };
+    let mut hostname_max = unsafe { sysconf(_SC_HOST_NAME_MAX) };
+    // POSIX allows for constants to be -1 in case there is no limit;
+    // in case _SC_HOST_NAME_MAX, use 256 as locally hardcoded limit,
+    // which should be good enough in most of the cases.
+    if hostname_max < 0 {
+        hostname_max = 256;
+    }
     let mut buffer = vec![0; (hostname_max as usize) + 1];
     let returncode = unsafe { libc::gethostname(buffer.as_mut_ptr() as *mut c_char, buffer.len()) };
     if returncode != 0 {
