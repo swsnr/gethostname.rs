@@ -44,19 +44,19 @@ use std::ffi::OsString;
 ///
 /// [GetComputerNameExW]: https://docs.microsoft.com/en-us/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getcomputernameexw
 pub fn gethostname() -> OsString {
-    gethostname_impl()
-}
-
-#[cfg(unix)]
-#[inline]
-fn gethostname_impl() -> OsString {
-    use std::os::unix::ffi::OsStringExt;
-    OsString::from_vec(rustix::system::uname().nodename().to_bytes().to_vec())
+    #[cfg(unix)]
+    {
+        use std::os::unix::ffi::OsStringExt;
+        OsString::from_vec(rustix::system::uname().nodename().to_bytes().to_vec())
+    }
+    #[cfg(windows)]
+    {
+        get_computer_physical_dns_hostname()
+    }
 }
 
 #[cfg(windows)]
-#[inline]
-fn gethostname_impl() -> OsString {
+fn get_computer_physical_dns_hostname() -> OsString {
     use std::os::windows::ffi::OsStringExt;
 
     // The DNS host name of the local computer. If the local computer is a node
