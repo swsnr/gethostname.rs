@@ -14,7 +14,9 @@ categories = ["os", "api-bindings"]
 rust-version = "1.64"
 
 [target.'cfg(not(windows))'.dependencies]
-libc = "0.2.141"
+rustix = { version = "0.38.34", default-features = false, features = [
+    "system",
+] }
 
 [target.'cfg(windows)'.dependencies]
 windows-targets = "0.52.4"
