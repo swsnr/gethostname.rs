@@ -48,3 +48,4 @@ jobs:
       - run: cargo fmt --check
         if: matrix.rust == 'stable'
       - run: cargo doc
+        if: "!contains(matrix.os, 'windows')"
