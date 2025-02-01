@@ -35,3 +35,6 @@ pre-release-replacements = [
 verify = false
 # The release workflow does this for us.
 publish = false
+# We'll first publish the commit to ensure that test pass, and then the tag if
+# the commit's green; otherwise our own rulesets will reject the push.
+push = false
