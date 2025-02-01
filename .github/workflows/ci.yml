@@ -40,12 +40,12 @@ jobs:
       - run: cargo test --locked
       # Run tests with fixed hostname on Unix systems
       - run: sudo hostname hostname-for-testing
-        if: '!contains(matrix.os, "windows")'
+        if: "!contains(matrix.os, 'windows')"
       - run: cargo test --locked -- --ignored
-        if: '!contains(matrix.os, "windows")'
+        if: "!contains(matrix.os, 'windows')"
       - run: cargo clippy --locked --all-targets
         if: matrix.rust == 'stable'
       - run: cargo fmt --check
         if: matrix.rust == 'stable'
       - run: cargo doc
-        if: '!contains(matrix.os, "windows")'
+        if: "!contains(matrix.os, 'windows')"
