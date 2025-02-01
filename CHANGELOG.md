@@ -8,6 +8,9 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Changed
+- `gethostname` now has a `must_use` attribute.
+
 ## [1.0.0] – 2025-02-01
 
 We can safely declare this stable now.

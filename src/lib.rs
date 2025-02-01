@@ -22,7 +22,7 @@
 //!
 //! [ghn]: http://pubs.opengroup.org/onlinepubs/9699919799/functions/gethostname.html
 
-#![deny(warnings, missing_docs, clippy::all)]
+#![deny(warnings, missing_docs, clippy::all, clippy::pedantic)]
 
 use std::ffi::OsString;
 
@@ -43,6 +43,7 @@ use std::ffi::OsString;
 /// returned name can be resolved in any particular way, e.g. DNS.
 ///
 /// [GetComputerNameExW]: https://docs.microsoft.com/en-us/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getcomputernameexw
+#[must_use]
 pub fn gethostname() -> OsString {
     #[cfg(unix)]
     {
