@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+We can safely declare this stable now.
+
 ## [0.5.0] – 2024-07-06
 
 ### Changed

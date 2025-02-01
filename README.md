@@ -11,6 +11,8 @@ use gethostname::gethostname;
 println!("Hostname: {:?}", gethostname());
 ```
 
+This crate is stable and will not see many changes.
+
 [crates]: https://crates.io/crates/gethostname
 [docs]: https://docs.rs/gethostname
 [ghn]: http://pubs.opengroup.org/onlinepubs/9699919799/functions/gethostname.html
