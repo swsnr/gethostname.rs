@@ -10,6 +10,7 @@ and this project adheres to
 
 ### Changed
 - `gethostname` now has a `must_use` attribute.
+- Update rustix dependency to version 1.
 
 ## [1.0.0] – 2025-02-01
 
