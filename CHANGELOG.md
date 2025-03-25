@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [1.0.1] – 2025-03-25
+
 ### Changed
 - `gethostname` now has a `must_use` attribute.
 - Update rustix dependency to version 1.
@@ -98,7 +100,8 @@ Initial release.
 
 - `gethostname()` for non-Windows platforms.
 
-[Unreleased]: https://github.com/swsnr/gethostname.rs/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/swsnr/gethostname.rs/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/swsnr/gethostname.rs/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/swsnr/gethostname.rs/compare/v0.5.0...v1.0.0
 [0.5.0]: https://github.com/swsnr/gethostname.rs/compare/v0.4.3...v0.5.0
 [0.4.3]: https://github.com/swsnr/gethostname.rs/compare/v0.4.2...v0.4.3
