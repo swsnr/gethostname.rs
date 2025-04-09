@@ -38,6 +38,9 @@ use std::ffi::OsString;
 /// name would result in a wrong buffer size which could cause this function to
 /// panic.
 ///
+/// On WASM/WASI platforms, returns a fixed hostname "wasm-host" since these
+/// environments typically don't have access to the actual hostname.
+///
 /// Note that this host name does not have a well-defined meaning in terms of
 /// network name resolution.  Specifically, it's not guaranteed that the
 /// returned name can be resolved in any particular way, e.g. DNS.
@@ -53,6 +56,10 @@ pub fn gethostname() -> OsString {
     #[cfg(windows)]
     {
         get_computer_physical_dns_hostname()
+    }
+    #[cfg(target_arch = "wasm32")]
+    {
+        OsString::from("wasm-host")
     }
 }
 

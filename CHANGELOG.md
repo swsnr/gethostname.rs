@@ -8,6 +8,9 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Changed
+- Add WASM/WASI support with fixed hostname
+
 ## [1.0.1] – 2025-03-25
 
 ### Changed
