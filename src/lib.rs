@@ -23,6 +23,8 @@
 //! [ghn]: http://pubs.opengroup.org/onlinepubs/9699919799/functions/gethostname.html
 
 #![deny(warnings, missing_docs, clippy::all, clippy::pedantic)]
+// On the Windows target our doc links don't necessarily work.
+#![cfg_attr(windows, allow(rustdoc::broken_intra_doc_links))]
 
 use std::ffi::OsString;
 
