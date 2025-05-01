@@ -9,6 +9,7 @@ and this project adheres to
 ## [Unreleased]
 
 ### Changed
+- Migrate from Github to <https://codeberg.org/swsnr/gethostname.rs>.
 - Bump MSRV to 1.68
 
 ## [1.0.1] – 2025-03-25
