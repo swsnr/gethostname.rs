@@ -11,7 +11,7 @@ edition = "2021"
 license = "Apache-2.0"
 keywords = ["gethostname", "DNS", "hostname"]
 categories = ["os", "api-bindings"]
-rust-version = "1.64"
+rust-version = "1.68"
 
 [target.'cfg(not(windows))'.dependencies]
 rustix = { version = "1.0.3", default-features = false, features = ["system"] }
