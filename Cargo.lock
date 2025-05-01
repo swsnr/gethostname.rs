@@ -20,7 +20,7 @@ dependencies = [
 
 [[package]]
 name = "gethostname"
-version = "1.0.1"
+version = "1.0.2"
 dependencies = [
  "rustix",
  "windows-targets",

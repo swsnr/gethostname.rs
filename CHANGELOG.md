@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [1.0.2] – 2025-05-01
+
 ### Changed
 - Migrate from Github to <https://codeberg.org/swsnr/gethostname.rs>.
 - Bump MSRV to 1.68
@@ -104,7 +106,8 @@ Initial release.
 
 - `gethostname()` for non-Windows platforms.
 
-[Unreleased]: https://codeberg.org/swsnr/gethostname.rs/compare/v1.0.1...HEAD
+[Unreleased]: https://codeberg.org/swsnr/gethostname.rs/compare/v1.0.2...HEAD
+[1.0.2]: https://codeberg.org/swsnr/gethostname.rs/compare/v1.0.1...v1.0.2
 [1.0.1]: https://codeberg.org/swsnr/gethostname.rs/compare/v1.0.0...v1.0.1
 [1.0.0]: https://codeberg.org/swsnr/gethostname.rs/compare/v0.5.0...v1.0.0
 [0.5.0]: https://codeberg.org/swsnr/gethostname.rs/compare/v0.4.3...v0.5.0
