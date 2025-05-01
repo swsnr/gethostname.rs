@@ -115,9 +115,14 @@ mod tests {
 
     #[test]
     fn gethostname_matches_system_hostname() {
-        let output = Command::new("hostname")
-            .output()
-            .expect("failed to get hostname");
+        let mut command = if cfg!(windows) {
+            Command::new("hostname")
+        } else {
+            let mut uname = Command::new("uname");
+            uname.arg("-n");
+            uname
+        };
+        let output = command.output().expect("failed to get hostname");
         if output.status.success() {
             let hostname = String::from_utf8_lossy(&output.stdout);
             assert!(
