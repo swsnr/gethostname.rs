@@ -95,7 +95,7 @@ fn get_computer_physical_dns_hostname() -> OsString {
         {
             panic!(
                 "GetComputerNameExW failed to read hostname.
-        Please report this issue to <https://github.com/swsnr/gethostname.rs/issues>!"
+        Please report this issue to <https://codeberg.org/swsnr/gethostname.rs/issues>!"
             );
         }
     }

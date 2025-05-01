@@ -25,8 +25,8 @@ We can safely declare this stable now.
 - On Unix, use `rustix` to provide a simple implementation of `gethostname`
   without `unsafe` (see [GH-10] and [GH-17]).
 
-[GH-10]: https://github.com/swsnr/gethostname.rs/pull/10
-[GH-17]: https://github.com/swsnr/gethostname.rs/pull/17
+[GH-10]: https://codeberg.org/swsnr/gethostname.rs/pulls/10
+[GH-17]: https://codeberg.org/swsnr/gethostname.rs/pulls/17
 
 ## [0.4.3] – 2023-05-13
 
@@ -35,7 +35,7 @@ We can safely declare this stable now.
 - Removed the `windows` dependency in favor of using embedded bindings, see
   [GH-11].
 
-[GH-11]: https://github.com/swsnr/gethostname.rs/pull/11
+[GH-11]: https://codeberg.org/swsnr/gethostname.rs/pulls/11
 
 ## [0.4.2] – 2023-04-13
 
@@ -47,7 +47,7 @@ We can safely declare this stable now.
 
 ### Changed
 
-- Update repository URL to <https://github.com/swsnr/gethostname.rs>.
+- Update repository URL to <https://codeberg.org/swsnr/gethostname.rs>.
 
 ## [0.4.0] – 2022-10-28
 
@@ -56,7 +56,7 @@ We can safely declare this stable now.
 - Replace `winapi` with windows-rs, see [GH-7].
 - Bump MSRV to 1.64 as required by windows-rs, see [GH-7].
 
-[GH-7]: https://github.com/swsnr/gethostname.rs/pull/7
+[GH-7]: https://codeberg.org/swsnr/gethostname.rs/pulls/7
 
 ## [0.3.0] – 2022-10-09
 
@@ -86,7 +86,7 @@ We can safely declare this stable now.
 
 - Add Windows implementation (see [GH-1]).
 
-[GH-1]: https://github.com/swsnr/gethostname.rs/pull/1
+[GH-1]: https://codeberg.org/swsnr/gethostname.rs/pulls/1
 
 ### Changed
 
@@ -100,16 +100,16 @@ Initial release.
 
 - `gethostname()` for non-Windows platforms.
 
-[Unreleased]: https://github.com/swsnr/gethostname.rs/compare/v1.0.1...HEAD
-[1.0.1]: https://github.com/swsnr/gethostname.rs/compare/v1.0.0...v1.0.1
-[1.0.0]: https://github.com/swsnr/gethostname.rs/compare/v0.5.0...v1.0.0
-[0.5.0]: https://github.com/swsnr/gethostname.rs/compare/v0.4.3...v0.5.0
-[0.4.3]: https://github.com/swsnr/gethostname.rs/compare/v0.4.2...v0.4.3
-[0.4.2]: https://github.com/swsnr/gethostname.rs/compare/v0.4.1...v0.4.2
-[0.4.1]: https://github.com/swsnr/gethostname.rs/compare/v0.4.0...v0.4.1
-[0.4.0]: https://github.com/swsnr/gethostname.rs/compare/v0.3.0...v0.4.0
-[0.3.0]: https://github.com/swsnr/gethostname.rs/compare/v0.2.3...v0.3.0
-[0.2.3]: https://github.com/swsnr/gethostname.rs/compare/v0.2.2...v0.2.3
-[0.2.2]: https://github.com/swsnr/gethostname.rs/compare/gethostname-0.2.1...v0.2.2
-[0.2.0]: https://github.com/swsnr/gethostname.rs/compare/gethostname-0.1.0...gethostname-0.2.0
-[0.2.1]: https://github.com/swsnr/gethostname.rs/compare/gethostname-0.2.0...gethostname-0.2.1
+[Unreleased]: https://codeberg.org/swsnr/gethostname.rs/compare/v1.0.1...HEAD
+[1.0.1]: https://codeberg.org/swsnr/gethostname.rs/compare/v1.0.0...v1.0.1
+[1.0.0]: https://codeberg.org/swsnr/gethostname.rs/compare/v0.5.0...v1.0.0
+[0.5.0]: https://codeberg.org/swsnr/gethostname.rs/compare/v0.4.3...v0.5.0
+[0.4.3]: https://codeberg.org/swsnr/gethostname.rs/compare/v0.4.2...v0.4.3
+[0.4.2]: https://codeberg.org/swsnr/gethostname.rs/compare/v0.4.1...v0.4.2
+[0.4.1]: https://codeberg.org/swsnr/gethostname.rs/compare/v0.4.0...v0.4.1
+[0.4.0]: https://codeberg.org/swsnr/gethostname.rs/compare/v0.3.0...v0.4.0
+[0.3.0]: https://codeberg.org/swsnr/gethostname.rs/compare/v0.2.3...v0.3.0
+[0.2.3]: https://codeberg.org/swsnr/gethostname.rs/compare/v0.2.2...v0.2.3
+[0.2.2]: https://codeberg.org/swsnr/gethostname.rs/compare/gethostname-0.2.1...v0.2.2
+[0.2.1]: https://codeberg.org/swsnr/gethostname.rs/compare/gethostname-0.2.0...gethostname-0.2.1
+[0.2.0]: https://codeberg.org/swsnr/gethostname.rs/compare/gethostname-0.1.0...gethostname-0.2.0
