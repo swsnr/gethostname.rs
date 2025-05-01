@@ -29,10 +29,3 @@ pre-release-replacements = [
     { file = "CHANGELOG.md", search = "HEAD", replace = "{{tag_name}}", exactly = 1 },
     { file = "CHANGELOG.md", search = "\\[Unreleased\\]: ", replace = "[Unreleased]: https://codeberg.org/swsnr/gethostname.rs/compare/{{tag_name}}...HEAD\n[{{version}}]: ", exactly = 1 },
 ]
-# Github actions does this for us.
-verify = false
-# The release workflow does this for us.
-publish = false
-# We'll first publish the commit to ensure that test pass, and then the tag if
-# the commit's green; otherwise our own rulesets will reject the push.
-push = false

@@ -15,3 +15,6 @@ test-all:
     # Windows target
     cargo +stable build --locked --target x86_64-pc-windows-msvc
     cargo +stable doc --target x86_64-pc-windows-msvc
+
+release *ARGS: test-all
+    cargo release {{ARGS}}
