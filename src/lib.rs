@@ -68,7 +68,7 @@ fn get_computer_physical_dns_hostname() -> OsString {
     pub const COMPUTER_NAME_PHYSICAL_DNS_HOSTNAME: i32 = 5;
 
     // https://learn.microsoft.com/en-us/windows/win32/api/sysinfoapi/nf-sysinfoapi-getcomputernameexw
-    ::windows_targets::link!("kernel32.dll" "system" fn GetComputerNameExW(nametype: i32, lpbuffer: *mut u16, nsize: *mut u32) -> i32);
+    ::windows_link::link!("kernel32.dll" "system" fn GetComputerNameExW(nametype: i32, lpbuffer: *mut u16, nsize: *mut u32) -> i32);
 
     let mut buffer_size: u32 = 0;
 

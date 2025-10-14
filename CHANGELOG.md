@@ -8,6 +8,12 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Changed
+- Use windows-link instead of windows-targets (see [CB-22]).
+- Bump MSRV to 1.71 (see [CB-22]).
+
+[CB-22]: https://codeberg.org/swsnr/gethostname.rs/pulls/22
+
 ## [1.0.2] – 2025-05-01
 
 ### Changed

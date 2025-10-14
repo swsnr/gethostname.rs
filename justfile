@@ -11,7 +11,7 @@ test-all:
     cargo +stable test --locked
     cargo +stable doc
     # MSRV
-    cargo +1.68 build --locked
+    cargo +1.71 build --locked
     # Windows target
     cargo +stable build --locked --target x86_64-pc-windows-msvc
     cargo +stable doc --target x86_64-pc-windows-msvc
