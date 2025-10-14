@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [1.1.0] – 2025-10-14
+
 ### Changed
 - Use windows-link instead of windows-targets (see [CB-22]).
 - Bump MSRV to 1.71 (see [CB-22]).
@@ -112,7 +114,8 @@ Initial release.
 
 - `gethostname()` for non-Windows platforms.
 
-[Unreleased]: https://codeberg.org/swsnr/gethostname.rs/compare/v1.0.2...HEAD
+[Unreleased]: https://codeberg.org/swsnr/gethostname.rs/compare/v1.1.0...HEAD
+[1.1.0]: https://codeberg.org/swsnr/gethostname.rs/compare/v1.0.2...v1.1.0
 [1.0.2]: https://codeberg.org/swsnr/gethostname.rs/compare/v1.0.1...v1.0.2
 [1.0.1]: https://codeberg.org/swsnr/gethostname.rs/compare/v1.0.0...v1.0.1
 [1.0.0]: https://codeberg.org/swsnr/gethostname.rs/compare/v0.5.0...v1.0.0
